@@ -41,8 +41,8 @@ if __name__ == '__main__':#the program starts here:
     print("Welcome to the musical bracelet")
 
 
-#showMainMenu()
-#theInstrumentTheUserChoose = showChooseInstrumentMenu()
+showMainMenu()
+theInstrumentTheUserChoose = showChooseInstrumentMenu()
 
 running = True
 while running:
@@ -53,45 +53,48 @@ while running:
     screen.blit(background, (0, 0))
     screen.blit(theInstrumentTheUserChoose, (205, 198))
 
-    ch = getMessageFromArduino()
-    if ch[0] == 'A':
-        print(ch)
-        ListOfSoundTextColors[0] = BLUE
-        aSoundWasPlayed = True
-    if ch[0] == 'B':
-        print(ch)
-        ListOfSoundTextColors[1] = BLUE
-        aSoundWasPlayed = True
-    if ch[0] == 'C':
-        print(ch)
-        ListOfSoundTextColors[2] = BLUE
-        aSoundWasPlayed = True
-    if ch[0] == 'D':
-        print(ch)
-        ListOfSoundTextColors[3] = BLUE
-        aSoundWasPlayed = True
-    if ch[0] == 'E':
-        print(ch)
-        ListOfSoundTextColors[4] = BLUE
-        aSoundWasPlayed = True
-    if ch[0] == 'F':
-        print(ch)
-        ListOfSoundTextColors[5] = BLUE
-        aSoundWasPlayed = True
-    if ch[0] == 'G':
-        print(ch)
-        ListOfSoundTextColors[6] = BLUE
-        aSoundWasPlayed = True
-    if ch[0] == 'H':
-        print(ch)
-        ListOfSoundTextColors[7] = BLUE
-        aSoundWasPlayed = True
-    if ch[0] == 'r':  # Then the user wants to record
-        timeToRecord = chooseTimeToRecord()
-        record_duration_of_sound(timeToRecord)
-    else:
-        if ch != 'N':
+    #ch = getMessageFromArduino()
+    if serialInst.in_waiting:
+        packet = serialInst.readline()  # read byte
+        ch = packet.decode('utf').rstrip('\n')  # read till new line
+        if ch[0] == 'A':
             print(ch)
+            ListOfSoundTextColors[0] = BLUE
+            aSoundWasPlayed = True
+        if ch[0] == 'B':
+            print(ch)
+            ListOfSoundTextColors[1] = BLUE
+            aSoundWasPlayed = True
+        if ch[0] == 'C':
+            print(ch)
+            ListOfSoundTextColors[2] = BLUE
+            aSoundWasPlayed = True
+        if ch[0] == 'D':
+            print(ch)
+            ListOfSoundTextColors[3] = BLUE
+            aSoundWasPlayed = True
+        if ch[0] == 'E':
+            print(ch)
+            ListOfSoundTextColors[4] = BLUE
+            aSoundWasPlayed = True
+        if ch[0] == 'F':
+            print(ch)
+            ListOfSoundTextColors[5] = BLUE
+            aSoundWasPlayed = True
+        if ch[0] == 'G':
+            print(ch)
+            ListOfSoundTextColors[6] = BLUE
+            aSoundWasPlayed = True
+        if ch[0] == 'H':
+            print(ch)
+            ListOfSoundTextColors[7] = BLUE
+            aSoundWasPlayed = True
+        if ch[0] == 'r':  # Then the user wants to record
+            timeToRecord = chooseTimeToRecord()
+            record_duration_of_sound(timeToRecord)
+        else:
+            if ch != 'N':
+                print(ch)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
